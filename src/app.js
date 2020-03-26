@@ -1,5 +1,7 @@
 var express = require('express');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+
 
 var svrApp = express();
 
@@ -11,6 +13,10 @@ const db = mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: tr
 // get bookModdel object
 const Book = require('./models/bookModel');
 
+// these 2 linse required to enable post data
+// Order is important. these 2 lines shoud be added before POST Request
+svrApp.use(bodyParser.urlencoded({extended:true}));
+svrApp.use(bodyParser.json());
 
 var port = process.env.PORT || 3000;
 //Create router object useing express module
@@ -18,6 +24,12 @@ const bookRouter = express.Router();
 
 // bookRouter object is connfigured to read '/books' url and return 
 bookRouter.route('/books')
+    .post((req,res)=>{
+        console.log(req.body);
+        const book = new Book(req.body);
+        console.log(book);
+        return res.json(book);
+    })
     .get((req, res) => {
         //const response = { hello: 'This is my first API Get call' };
         Book.find((err,books)=>{
