@@ -67,8 +67,8 @@ function routes(Book) {
             const {book} =req;// deconstruct feature in ES2015
 
             // to STOP update ID changes, delete it from request object
-            if(req.book._id){  // this _id comes with monogo implementation. but lint not may not support
-                delete req.book._id;
+            if(req.body._id){  // this _id comes with monogo implementation. but lint not may not support
+                delete req.body._id;
             }
 
             Object.entries(req.body).forEach(item=>{
