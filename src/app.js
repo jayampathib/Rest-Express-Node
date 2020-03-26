@@ -8,6 +8,9 @@ const db = mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: tr
     .then(() => console.log('MongoDB Connected'))
     .catch((err) => console.log("Connection FAil\n" + err));
 
+// get bookModdel object
+const Book = require('./models/bookModel');
+
 
 var port = process.env.PORT || 3000;
 //Create router object useing express module
@@ -16,8 +19,14 @@ const bookRouter = express.Router();
 // bookRouter object is connfigured to read '/books' url and return 
 bookRouter.route('/books')
     .get((req, res) => {
-        const response = { hello: 'This is my first API Get call' };
-        res.json(response);
+        //const response = { hello: 'This is my first API Get call' };
+        Book.find((err,books)=>{
+            if(err){
+                return res.send(err);
+            }
+            return res.json(books);
+        });
+         
     });
 //use above configured route object
 svrApp.use('/api', bookRouter);
