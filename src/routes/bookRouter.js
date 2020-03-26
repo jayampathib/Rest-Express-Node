@@ -32,7 +32,20 @@ function routes(Book) {
                 }
                 return res.json(book);
             });
-
+        })
+        .put((req,res)=>{
+            Book.findById(req.params.bookId, (err, book) => {
+                if (err) {
+                    return res.send(err);
+                } 
+                console.log(req.body);              
+                book.title = req.body.title;
+                book.genre =req.body.genre;
+                book.author =req.body.author;
+                book.read= req.body.read;
+                book.save();
+                return res.json(book);
+            });
         });
     bookRouter.route('/bookSearch')
         .get((req, res) => {
