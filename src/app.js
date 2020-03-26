@@ -28,6 +28,17 @@ bookRouter.route('/books')
         });
          
     });
+    bookRouter.route('/books/:bookId')
+    .get((req, res) => {
+        //const response = { hello: 'This is my first API Get call' };
+        Book.findById(req.params.bookId,(err,book)=>{
+            if(err){
+                return res.send(err);
+            }
+            return res.json(book);
+        });
+         
+    });
     bookRouter.route('/bookSearch')
     .get((req, res) => {
         const query ={};
