@@ -1,0 +1,20 @@
+{
+  "name": "Rest-Express-Node",
+  "version": "1.0.0",
+  "description": "Created using Pluralsight course [RESTful web service with Node.js and Express by Jonathan Mills]",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayampathib/Rest-Express-Node.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayampathib/Rest-Express-Node/issues"
+  },
+  "homepage": "https://github.com/jayampathib/Rest-Express-Node#readme"
+}
