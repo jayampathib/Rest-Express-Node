@@ -23,21 +23,33 @@ function routes(Book) {
             });
 
         });
-    bookRouter.route('/books/:bookId')
-        .get((req, res) => {
-            //const response = { hello: 'This is my first API Get call' };
+
+        // this .use method is a middlewhere . which is called whe url comes with book id
+        // else this book sereach method call is repeate in GET, PUT and PATCH all 3 methods
+        bookRouter.use('/books/:bookId',(req,res,next) => {
             Book.findById(req.params.bookId, (err, book) => {
                 if (err) {
                     return res.send(err);
                 }
-                return res.json(book);
+                if(book){
+                    req.book =book;
+                    return next();
+                }
+                // book is not found
+                return res.sendStatus(404);
             });
-        })
+        });
+    bookRouter.route('/books/:bookId')
+        .get((req, res) => res.json(req.json))
+            //const response = { hello: 'This is my first API Get call' };
+            //res.json(req.json); // call above middleware
+        //})
         .put((req,res)=>{
-            Book.findById(req.params.bookId, (err, book) => {
-                if (err) {
-                    return res.send(err);
-                } 
+            //Book.findById(req.params.bookId, (err, book) => {
+                //if (err) {
+                //    return res.send(err);
+                //} 
+                const {book} =req;// deconstruct feature in ES2015
                 console.log(req.body);              
                 book.title = req.body.title;
                 book.genre =req.body.genre;
@@ -45,8 +57,12 @@ function routes(Book) {
                 book.read= req.body.read;
                 book.save();
                 return res.json(book);
-            });
+            //});
+        })
+        .patch((req,res)=>{
         });
+
+
     bookRouter.route('/bookSearch')
         .get((req, res) => {
             const query = {};
