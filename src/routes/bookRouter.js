@@ -29,9 +29,11 @@ function routes(Book) {
         bookRouter.use('/books/:bookId',(req,res,next) => {
             Book.findById(req.params.bookId, (err, book) => {
                 if (err) {
+                    console.log('Error findById');
                     return res.send(err);
                 }
                 if(book){
+                    console.log('Success findById');
                     req.book =book;
                     return next();
                 }
@@ -81,6 +83,17 @@ function routes(Book) {
                     return res.send(err);
                 }
                 return res.json(book);
+            });
+        })
+        .delete((req,res)=>{
+            console.log('Delete start');
+            req.book.remove ((err)=>{
+                if(err){
+                    console.log('Delete Error');
+                    return res.send(err);
+                }
+                console.log('DELETE Success  ');
+                return res.status(204);
             });
         });
 
