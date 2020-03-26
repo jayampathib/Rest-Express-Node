@@ -27,8 +27,9 @@ bookRouter.route('/books')
     .post((req,res)=>{
         console.log(req.body);
         const book = new Book(req.body);
+        book.save();
         console.log(book);
-        return res.json(book);
+        return res.status(201).json(book);
     })
     .get((req, res) => {
         //const response = { hello: 'This is my first API Get call' };
