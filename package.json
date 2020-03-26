@@ -19,5 +19,8 @@
   "homepage": "https://github.com/jayampathib/Rest-Express-Node#readme",
   "devDependencies": {
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "mongoose": "^5.9.6"
   }
 }
