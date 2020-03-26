@@ -55,11 +55,33 @@ function routes(Book) {
                 book.genre =req.body.genre;
                 book.author =req.body.author;
                 book.read= req.body.read;
-                book.save();
-                return res.json(book);
+                req.book.save((err)=>{
+                    if(err){
+                        return res.send(err);
+                    }
+                    return res.json(book);
+                });
             //});
         })
         .patch((req,res)=>{
+            const {book} =req;// deconstruct feature in ES2015
+
+            // to STOP update ID changes, delete it from request object
+            if(req.book._id){  // this _id comes with monogo implementation. but lint not may not support
+                delete req.book._id;
+            }
+
+            Object.entries(req.body).forEach(item=>{
+                const key = item[0];
+                const valu = item[1];
+                book[key]=valu;
+            });
+            req.book.save((err)=>{
+                if(err){
+                    return res.send(err);
+                }
+                return res.json(book);
+            });
         });
 
 
