@@ -24,76 +24,76 @@ function routes(Book) {
 
         });
 
-        // this .use method is a middlewhere . which is called whe url comes with book id
-        // else this book sereach method call is repeate in GET, PUT and PATCH all 3 methods
-        bookRouter.use('/books/:bookId',(req,res,next) => {
-            Book.findById(req.params.bookId, (err, book) => {
-                if (err) {
-                    console.log('Error findById');
-                    return res.send(err);
-                }
-                if(book){
-                    console.log('Success findById');
-                    req.book =book;
-                    return next();
-                }
-                // book is not found
-                return res.sendStatus(404);
-            });
+    // this .use method is a middlewhere . which is called whe url comes with book id
+    // else this book sereach method call is repeate in GET, PUT and PATCH all 3 methods
+    bookRouter.use('/books/:bookId', (req, res, next) => {
+        Book.findById(req.params.bookId, (err, book) => {
+            if (err) {
+                console.log('Error findById');
+                return res.send(err);
+            }
+            if (book) {
+                console.log('Success findById');
+                req.book = book;
+                return next();
+            }
+            // book is not found
+            return res.sendStatus(404);
         });
+    });
     bookRouter.route('/books/:bookId')
         .get((req, res) => res.json(req.json))
-            //const response = { hello: 'This is my first API Get call' };
-            //res.json(req.json); // call above middleware
+        //const response = { hello: 'This is my first API Get call' };
+        //res.json(req.json); // call above middleware
         //})
-        .put((req,res)=>{
+        .put((req, res) => {
             //Book.findById(req.params.bookId, (err, book) => {
-                //if (err) {
-                //    return res.send(err);
-                //} 
-                const {book} =req;// deconstruct feature in ES2015
-                console.log(req.body);              
-                book.title = req.body.title;
-                book.genre =req.body.genre;
-                book.author =req.body.author;
-                book.read= req.body.read;
-                req.book.save((err)=>{
-                    if(err){
-                        return res.send(err);
-                    }
-                    return res.json(book);
-                });
+            //if (err) {
+            //    return res.send(err);
+            //} 
+            const { book } = req;// deconstruct feature in ES2015
+            console.log(req.body);
+            book.title = req.body.title;
+            book.genre = req.body.genre;
+            book.author = req.body.author;
+            book.read = req.body.read;
+            req.book.save((err) => {
+                if (err) {
+                    return res.send(err);
+                }
+                return res.json(book);
+            });
             //});
         })
-        .patch((req,res)=>{
-            const {book} =req;// deconstruct feature in ES2015
+        .patch((req, res) => {
+            const { book } = req;// deconstruct feature in ES2015
 
             // to STOP update ID changes, delete it from request object
-            if(req.body._id){  // this _id comes with monogo implementation. but lint not may not support
+            if (req.body._id) {  // this _id comes with monogo implementation. but lint not may not support
                 delete req.body._id;
             }
 
-            Object.entries(req.body).forEach(item=>{
+            Object.entries(req.body).forEach(item => {
                 const key = item[0];
                 const valu = item[1];
-                book[key]=valu;
+                book[key] = valu;
             });
-            req.book.save((err)=>{
-                if(err){
+            req.book.save((err) => {
+                if (err) {
                     return res.send(err);
                 }
                 return res.json(book);
             });
         })
-        .delete((req,res)=>{
+        .delete((req, res) => {
             console.log('Delete start');
-            req.book.remove ((err)=>{
-                if(err){
+            req.book.remove((err) => {
+                if (err) {
                     console.log('Delete Error');
                     return res.send(err);
                 }
                 console.log('DELETE Success  ');
-                return res.status(204);
+                return res.sendStatus(204);
             });
         });
 
