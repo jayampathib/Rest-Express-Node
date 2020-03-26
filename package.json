@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/jayampathib/Rest-Express-Node/issues"
   },
-  "homepage": "https://github.com/jayampathib/Rest-Express-Node#readme"
+  "homepage": "https://github.com/jayampathib/Rest-Express-Node#readme",
+  "devDependencies": {
+    "express": "^4.17.1"
+  }
 }
