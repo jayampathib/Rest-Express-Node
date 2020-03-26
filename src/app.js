@@ -28,6 +28,22 @@ bookRouter.route('/books')
         });
          
     });
+    bookRouter.route('/bookSearch')
+    .get((req, res) => {
+        const query ={};
+        // read query string object
+        if(req.query.genre){
+            query.genre=req.query.genre;
+        }
+        //const response = { hello: 'This is my first API Get call' };
+        Book.find(query,(err,books)=>{
+            if(err){
+                return res.send(err);
+            }
+            return res.json(books);
+        });
+         
+    });   
 //use above configured route object
 svrApp.use('/api', bookRouter);
 
