@@ -35,4 +35,14 @@ describe('Book CRUD Test', () => {
     done();
   });
 
+  // Close database connection
+  // close Application
+  after((done) => {     
+    mongoose.connection.close((err,success)=>{
+        if(err)
+            console.log(err);
+    });
+ 
+    app.server.close(done());
+  });
 });
