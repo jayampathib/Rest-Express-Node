@@ -1,18 +1,13 @@
 var express = require('express');
+var booksController = require('../controllers/booksController')
 
 function routes(Book) {
     //Create router object useing express module
     const bookRouter = express.Router();
-
+    const controller = booksController(Book);
     // bookRouter object is connfigured to read '/books' url and return 
     bookRouter.route('/books')
-        .post((req, res) => {
-            console.log(req.body);
-            const book = new Book(req.body);
-            book.save();
-            console.log(book);
-            return res.status(201).json(book);
-        })
+        .post(controller.post)
         .get((req, res) => {
             //const response = { hello: 'This is my first API Get call' };
             Book.find((err, books) => {
