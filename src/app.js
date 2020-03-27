@@ -15,7 +15,7 @@ if (process.env.ENV === 'test') {
     //Connect to Mongo DB'
     // 2 parameter object added to remove deprecate warnings
     console.log('This is for real');
-    const db = mongoose.connect('mongodb://localhost/bookAPI-prod', { useNewUrlParser: true, useUnifiedTopology: true })
+    const db = mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true, useUnifiedTopology: true })
         .then(() => console.log('MongoDB Connected'))
         .catch((err) => console.log("Connection FAil\n" + err));
 }

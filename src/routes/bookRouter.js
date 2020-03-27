@@ -14,7 +14,13 @@ function routes(Book) {
                 if (err) {
                     return res.send(err);
                 }
-                return res.json(books);
+                const returnBooks= books.map((bk)=>{
+                    const newBook = bk.toJSON();
+                    newBook.links ={};
+                    newBook.links.self = `http://${req.headers.host}/api/books/${bk._id}`;
+                    return newBook;
+                });
+                return res.json(returnBooks);
             });
 
         });
@@ -28,7 +34,7 @@ function routes(Book) {
                 return res.send(err);
             }
             if (book) {
-                console.log('Success findById');
+                console.log('Success findById',book);
                 req.book = book;
                 return next();
             }
@@ -37,7 +43,11 @@ function routes(Book) {
         });
     });
     bookRouter.route('/books/:bookId')
-        .get((req, res) => res.json(req.json))
+        .get((req, res) => {
+            console.log('Success Get single book',req);
+            console.log('Success Get single book',req.book);
+            res.json(req.book)
+        })
         //const response = { hello: 'This is my first API Get call' };
         //res.json(req.json); // call above middleware
         //})
