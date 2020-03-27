@@ -4,8 +4,9 @@ var express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-//Connect to Mongo DB
-const db = mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true })
+//Connect to Mongo DB'
+// 2 parameter object added to remove deprecate warnings
+const db = mongoose.connect('mongodb://localhost/bookAPI', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB Connected'))
     .catch((err) => console.log("Connection FAil\n" + err));
 
