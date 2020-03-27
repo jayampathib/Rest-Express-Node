@@ -4,7 +4,7 @@
   "description": "Created using Pluralsight course [RESTful web service with Node.js and Express by Jonathan Mills]",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha UnitTest/**/*Test.js"
   },
   "repository": {
     "type": "git",
