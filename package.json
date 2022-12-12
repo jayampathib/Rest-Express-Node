@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/jayampathib/Rest-Express-Node#readme",
   "devDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mocha": "^7.1.1",
     "should": "^13.2.3",
     "sinon": "^9.0.1",
